@@ -918,42 +918,42 @@ jobs:
             PLATFORM=darwin ARCH=arm64 .circleci/build/build_modules.sh
             # VSC Windows
             PLATFORM=win32 ARCH=x64 .circleci/build/build_modules.sh
-      - run:
-          name: Build Docker (x64, arm64)
-          command: |
-            TELEMETRY=$RI_SEGMENT_WRITE_KEY_DEV
+      # - run:
+      #     name: Build Docker (x64, arm64)
+      #     command: |
+      #       TELEMETRY=$RI_SEGMENT_WRITE_KEY_DEV
 
-            if [ << parameters.env >> == 'production' ]; then
-              TELEMETRY=$RI_SEGMENT_WRITE_KEY
-            fi
+      #       if [ << parameters.env >> == 'production' ]; then
+      #         TELEMETRY=$RI_SEGMENT_WRITE_KEY
+      #       fi
 
-            if [ << parameters.env >> == 'staging' ]; then
-              TELEMETRY=$RI_SEGMENT_WRITE_KEY_STAGE
-            fi
+      #       if [ << parameters.env >> == 'staging' ]; then
+      #         TELEMETRY=$RI_SEGMENT_WRITE_KEY_STAGE
+      #       fi
 
-            # Build alpine x64 image
-            docker buildx build \
-            -f .circleci/build/build.Dockerfile \
-            --platform linux/amd64 \
-            --build-arg DIST=release/web/Redis-Insight-web-linux-musl.x64.tar.gz \
-            --build-arg NODE_ENV=<< parameters.env >> \
-            --build-arg RI_SEGMENT_WRITE_KEY="$TELEMETRY" \
-            -t redisinsight:amd64 \
-            .
+      #       # Build alpine x64 image
+      #       docker buildx build \
+      #       -f .circleci/build/build.Dockerfile \
+      #       --platform linux/amd64 \
+      #       --build-arg DIST=release/web/Redis-Insight-web-linux-musl.x64.tar.gz \
+      #       --build-arg NODE_ENV=<< parameters.env >> \
+      #       --build-arg RI_SEGMENT_WRITE_KEY="$TELEMETRY" \
+      #       -t redisinsight:amd64 \
+      #       .
 
-            # Build alpine arm64 image
-            docker buildx build \
-            -f .circleci/build/build.Dockerfile \
-            --platform linux/arm64 \
-            --build-arg DIST=release/web/Redis-Insight-web-linux-musl.arm64.tar.gz \
-            --build-arg NODE_ENV=<< parameters.env >> \
-            --build-arg RI_SEGMENT_WRITE_KEY="$TELEMETRY" \
-            -t redisinsight:arm64 \
-            .
+      #       # Build alpine arm64 image
+      #       docker buildx build \
+      #       -f .circleci/build/build.Dockerfile \
+      #       --platform linux/arm64 \
+      #       --build-arg DIST=release/web/Redis-Insight-web-linux-musl.arm64.tar.gz \
+      #       --build-arg NODE_ENV=<< parameters.env >> \
+      #       --build-arg RI_SEGMENT_WRITE_KEY="$TELEMETRY" \
+      #       -t redisinsight:arm64 \
+      #       .
 
-            mkdir -p release/docker
-            docker image save -o release/docker/docker-linux-alpine.amd64.tar redisinsight:amd64
-            docker image save -o release/docker/docker-linux-alpine.arm64.tar redisinsight:arm64
+      #       mkdir -p release/docker
+      #       docker image save -o release/docker/docker-linux-alpine.amd64.tar redisinsight:amd64
+      #       docker image save -o release/docker/docker-linux-alpine.arm64.tar redisinsight:arm64
       - persist_to_workspace:
           root: .
           paths:
