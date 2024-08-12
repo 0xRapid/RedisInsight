@@ -70,6 +70,12 @@ jq --argjson keep "$BINARY_PACKAGES" \
   'del(.devDependencies) | .dependencies |= with_entries(select(.key as $k | $keep | index($k)))' \
   "$PACKAGE_JSON_PATH" > temp.json && mv temp.json "$PACKAGE_JSON_PATH"
 
+npm_config_arch="$ARCH" \
+npm_config_target_arch="$ARCH" \
+npm_config_platform="$PLATFORM" \
+npm_config_target_platform="$PLATFORM" \
+yarn --cwd ./redisinsight/api install --production
+
 # Compress minified build
 cd redisinsight && tar -czf build-mini.tar.gz \
 --exclude="api/node_modules/**/build/node_gyp_bins/python3" \

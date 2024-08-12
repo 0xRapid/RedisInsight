@@ -53,14 +53,14 @@ const esbuildProblemMatcherPlugin = {
 
   setup(build) {
     build.onStart(() => {
-      console.debug('[watch] build started');
+      console.debug('[esbuild] build started');
     });
     build.onEnd((result) => {
       result.errors.forEach(({ text, location }) => {
         console.error(`✘ [ERROR] ${text}`);
         console.error(`    ${location.file}:${location.line}:${location.column}:`);
       });
-      console.debug('[watch] build finished');
+      console.debug('[esbuild] build finished');
     });
   },
 };
