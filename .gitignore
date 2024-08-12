@@ -46,6 +46,7 @@ renderer.prod.js.map
 redisinsight/ui/style.css
 redisinsight/ui/style.css.map
 redisinsight/ui/dist
+redisinsight/ui/dist-minified
 redisinsight/api/commands
 redisinsight/api/guides
 redisinsight/api/tutorials
