@@ -75,6 +75,7 @@ npm_config_target_arch="$ARCH" \
 npm_config_platform="$PLATFORM" \
 npm_config_target_platform="$PLATFORM" \
 yarn --cwd ./redisinsight/api install --production
+yarn --cwd ./redisinsight/api autoclean --force
 
 # Compress minified build
 cd redisinsight && tar -czf build-mini.tar.gz \
